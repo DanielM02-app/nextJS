@@ -1,20 +1,20 @@
 "use client";
 import Image from "next/image";
-
-// Estados de los campos de texto
 import { useState } from "react";
-// Rutas de navegación
 import { useRouter } from "next/navigation";
-// Formularios
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 
+interface LoginFormData {
+  username: string;
+  password: string;
+}
 
 export default function LoginPage() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>();
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const onSubmit = (data: { username: string; password: string }) => {
+  const onSubmit: SubmitHandler<LoginFormData> = (data) => {
     if (data.username === "admin" && data.password === "1234") {
       router.push("/dashboard"); 
     } else {
